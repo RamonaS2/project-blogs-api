@@ -1,6 +1,7 @@
 const express = require('express');
 
 // ...
+// iniciando projeto
 
 const app = express();
 
