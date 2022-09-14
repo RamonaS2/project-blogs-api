@@ -14,4 +14,6 @@ postRoute.get('/:id', jwt.verifyToken, postController.getById);
 
 postRoute.put('/:id', jwt.verifyToken, verifyPost.verifyPost, postController.update);
 
+postRoute.delete('/:id', jwt.verifyToken, postController.remove);
+
 module.exports = postRoute;

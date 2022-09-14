@@ -104,6 +104,13 @@ const { User, Category, BlogPost, PostCategory,
   
     return updat;
   };
+
+  const remove = async (postId) => {
+    await BlogPost.destroy({
+      where: { id: postId },
+    });
+    return { message: 'Post removed' };
+  };
   
   module.exports = {
     verifyCategory,
@@ -112,4 +119,5 @@ const { User, Category, BlogPost, PostCategory,
     getAll,
     verifyAuthor,
     update,
+    remove,
   };

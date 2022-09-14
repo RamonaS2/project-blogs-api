@@ -74,9 +74,32 @@ const update = async (req, res) => {
   }
 };
 
+const remove = async (req, res) => {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+
+  const { email } = jwt.verify(token, JWT_SECRET);
+
+  const { dataValues: { id: userId } } = await User.findOne({ where: { email } });
+
+  try {
+    const author = await postService.verifyAuthor(id, userId);
+
+    if (author.message) {
+      return res.status(author.code).json({ message: author.message });
+    }
+    const deleta = await postService.remove(id);
+
+    return res.status(204).json(deleta);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  remove,
 };
